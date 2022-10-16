@@ -10,6 +10,8 @@ import Recover from './Recover';
 import SendTokens from './Send';
 import ImportAccount from './ImportAccount';
 import ReserveAccountID from './ReserveAccountID';
+import SeedConfirm from './SeedConfirm';
+import AccountConfirm from './AccountConfirm';
 
 import './App.css';
 import ConfirmSeedPhrase from './ConfirmSeedPhrase';
@@ -30,6 +32,8 @@ const Router = () => {
         <Route path='/recover' element={<Recover />} />
         <Route path='/send' element={<SendTokens />} />
         <Route path='/import-account' element={<ImportAccount />} />
+        <Route path='/seed-confirm' element={<SeedConfirm />} />
+        <Route path='/account-confirm' element={<AccountConfirm />} />
       </Routes>
     </BrowserRouter>
   );
