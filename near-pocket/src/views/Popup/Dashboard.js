@@ -148,9 +148,9 @@ const Dashboard = () => {
       </Box>
       <Box mt={10} textAlign='center'>
         <img src={NearLogoText} alt='near logo' width='200px' />
-        <Typography variant='subtitle1' color='primary' sx={{ fontWeight: 'bold', marginTop: '16px' }}>
+        <Typography variant='h6' color='primary' sx={{ fontWeight: 'bold', marginTop: '16px' }}>
           {balance}
-          <span style={{ marginLeft: '8px', color: '#092ada' }}>NEAR</span>
+          <span style={{ marginLeft: '8px', color: '#565656' }}>NEAR</span>
         </Typography>
       </Box>
 

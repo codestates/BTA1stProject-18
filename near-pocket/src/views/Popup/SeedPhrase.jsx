@@ -4,7 +4,7 @@ import { Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { encryptMessage, generateSeed, getStorageSyncValue } from '../../utils/utilsUpdated';
 import { useNavigate } from 'react-router';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import EntryHeader from '../../components/EntryHeader';
+import PageHeader from '../../components/PageHeader';
 
 const Seedphrase = () => {
   const navigate = useNavigate();
@@ -20,7 +20,6 @@ const Seedphrase = () => {
     const { phrase, address, secret } = generateSeed();
     setMnemonics(phrase);
     const hashedPassword = await getStorageSyncValue('hashedPassword');
-    console.log(hashedPassword);
     const storedUserDetails = await getStorageSyncValue('userInfo');
     const cipherMnemonic = encryptMessage(phrase, hashedPassword);
     const cipherPrivate = encryptMessage(secret, hashedPassword);
@@ -34,16 +33,13 @@ const Seedphrase = () => {
 
   return (
     <Box>
-      <EntryHeader />
-      <Typography variant='h6' align='left'>
-        시드 구문 보관 안내
-      </Typography>
+      <PageHeader title='시드구문 보관안내' />
       <Typography variant='subtitle2' sx={{ color: '#636363' }} align='left' mt={2}>
         아래 시드 구문을 종이에 적어 안전하게 보관해주세요.
         <br />
         이메일이나 컴퓨터에 보관할 경우 해킹으로 시드 구문이 유출될 수 있으니 삼가해주세요
       </Typography>
-      <Typography variant='body1' align='left' mt={2} sx={{ display: 'flex', alignItems: 'flex-end', backgroundColor: '#bcdefc', padding: 1 }}>
+      <Typography variant='body1' align='left' mt={2} sx={{ borderRadius: '10px', display: 'flex', alignItems: 'flex-end', backgroundColor: '#bcdefc', padding: 1 }}>
         {mnemonics}
         <Tooltip title='클립보드에 복사'>
           <IconButton size='small' aria-label='copy text' onClick={copyMnemonics}>

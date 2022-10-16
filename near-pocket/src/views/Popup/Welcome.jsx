@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import EntryHeader from '../../components/EntryHeader';
 
 const PopupPage = () => {
   const navigate = useNavigate();
@@ -17,7 +16,9 @@ const PopupPage = () => {
 
   return (
     <Box>
-      <EntryHeader />
+      <Typography variant='h4' align='center' mt={5} mb={5}>
+        Welcome to NEAR Pocket
+      </Typography>
       <Box mt={10}>
         <Box>
           <Button onClick={() => moveToPage('/uc-create-password')} fullWidth variant='outlined'>

@@ -5,7 +5,7 @@ import { Button, IconButton, OutlinedInput, InputLabel, InputAdornment, FormCont
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { setStorageSyncValue } from '../../utils/utilsUpdated';
-import EntryHeader from '../../components/EntryHeader';
+import PageHeader from '../../components/PageHeader';
 
 const CreatePassword = () => {
   const [password, setPassword] = useState('');
@@ -23,7 +23,7 @@ const CreatePassword = () => {
 
   return (
     <Box>
-      <EntryHeader />
+      <PageHeader title='비밀번호 설정' />
       <Typography variant='subtitle1' align='left' mt={2} mb={2}>
         계정에 접근하기 위해 사용될 고유한 비밀번호를 설정하세요.
       </Typography>

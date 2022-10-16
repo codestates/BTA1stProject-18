@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import { Button, IconButton, Typography } from '@mui/material';
 import { initialTasks } from '../../utils/utilsUpdated';
 import { useNavigate } from 'react-router';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import EntryHeader from '../../components/EntryHeader';
+import PageHeader from '../../components/PageHeader';
 
 const SeedConfirm = () => {
   const navigate = useNavigate();
   const [mnemonics, setMnemonics] = useState('');
-  
-  const activeWallet = useSelector(
-    ({ walletEncrypted }) => walletEncrypted?.activeWallet
-  );
+
+  const activeWallet = useSelector(({ walletEncrypted }) => walletEncrypted?.activeWallet);
 
   useEffect(() => {
     setMnemonicPhrase();
   }, [activeWallet]);
 
   const copyMnemonics = () => navigator.clipboard.writeText(mnemonics);
-  
-  const setMnemonicPhrase = async () => {
 
-    const { mnemonic } =
-    await initialTasks(activeWallet);
-    
+  const setMnemonicPhrase = async () => {
+    const { mnemonic } = await initialTasks(activeWallet);
+
     setMnemonics(mnemonic);
   };
 
@@ -36,12 +32,9 @@ const SeedConfirm = () => {
 
   return (
     <Box>
-      <EntryHeader />
-      <Typography variant='h6' align='center'>
-        시드 구문 보기
-      </Typography>
+      <PageHeader title='시드구문 보기' />
       <Typography variant='subtitle2' sx={{ color: '#636363' }} align='center' mt={2}>
-        비밀번호를 분실하거나 니어 포켓 재설치 시, 
+        비밀번호를 분실하거나 니어 포켓 재설치 시,
         <br />
         시드 구문으로 기존 계정을 복구할 수 있습니다.
         <br />
