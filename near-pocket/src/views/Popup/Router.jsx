@@ -2,11 +2,11 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 
-import Welcome from './Welcome';
 import CreatePassword from './CreatePassword';
+import StartPage from './StartPage';
 import Seedphrase from './SeedPhrase';
 import Dashboard from './Dashboard';
-import Recover from './Recover';
+import RecoverAccount from './RecoverAccount';
 import SendTokens from './SendTokens';
 import ImportAccount from './ImportAccount';
 import ReserveAccountID from './ReserveAccountID';
@@ -27,14 +27,14 @@ const Router = () => {
       <Box sx={{ paddingTop: '8px', marginTop: '56px', paddingX: '16px' }}>
         <Routes>
           <Route path='/' element={<Navigate to='/popup.html' replace />} />
-          <Route path='/popup.html' element={<Welcome />} />
+          <Route path='/popup.html' element={<StartPage />} />
           <Route path='/uc-create-password' element={<CreatePassword />} />
           <Route path='/uc-seed-phrase' element={<Seedphrase />} />
           <Route path='/uc-confirm-seed-phrase' element={<ConfirmSeedPhrase />} />
           <Route path='/uc-reserve-account-id' element={<ReserveAccountID />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/account-list' element={<AccountList />} />
-          <Route path='/recover' element={<Recover />} />
+          <Route path='/recover' element={<RecoverAccount />} />
           <Route path='/send' element={<SendTokens />} />
           <Route path='/import-account' element={<ImportAccount />} />
           <Route path='/seed-confirm' element={<SeedConfirm />} />

@@ -14,7 +14,7 @@ import PageHeader from '../../components/PageHeader';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const Recover = () => {
+const RecoverAccount = () => {
   const [loading, setLoading] = useState(false);
   const [phrase, setPhrase] = useState('');
   const [password, setPassword] = useState('');
@@ -155,4 +155,4 @@ const Recover = () => {
   );
 };
 
-export default Recover;
+export default RecoverAccount;

@@ -24,7 +24,7 @@ const AppHeader = () => {
         </Tooltip>
 
         <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
-          <Tooltip title='대시보드'>
+          <Tooltip title='서버'>
             <Typography variant='subtitle2' component='span' color='#7d7d7d'>
               <VpnLockIcon sx={{ width: '12px', height: '12px', mr: '4px' }} />
               test.net

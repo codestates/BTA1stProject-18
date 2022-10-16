@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
-const PopupPage = () => {
+const StartPage = () => {
   const navigate = useNavigate();
   const wallet = localStorage.getItem('wallet');
 
@@ -35,4 +35,4 @@ const PopupPage = () => {
   );
 };
 
-export default PopupPage;
+export default StartPage;
