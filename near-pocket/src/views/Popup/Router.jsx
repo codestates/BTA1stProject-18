@@ -15,7 +15,6 @@ import AccountConfirm from './AccountConfirm';
 import LockAccount from './LockAccount';
 import { Box } from '@mui/system';
 
-import './App.css';
 import ConfirmSeedPhrase from './ConfirmSeedPhrase';
 import AccountList from './AccountList';
 import AppHeader from '../../components/AppHeader';
