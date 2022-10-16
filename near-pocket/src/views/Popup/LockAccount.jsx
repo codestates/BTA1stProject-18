@@ -34,6 +34,7 @@ const LockAccount = () => {
         return;
       }
       localStorage.setItem('wallet', true);
+      setAlert('success', '다시 오신것을 환영합니다.');
       navigate('/dashboard');
     } catch (error) {
       console.log('err===', error.message);

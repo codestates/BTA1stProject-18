@@ -7,15 +7,16 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { SWITCH_ACCOUNT } from '../../redux/actionTypes';
 import { useNavigate } from 'react-router';
 import PageHeader from '../../components/PageHeader';
+import useAlert from '../../hooks/useAlert';
 
 const AccountList = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { setAlert } = useAlert();
   const [allWallets, setAllWallets] = useState([]);
 
   const activeWallet = useSelector(({ walletEncrypted }) => walletEncrypted?.activeWallet);
   const activeAccountID = useSelector(({ walletEncrypted }) => walletEncrypted?.activeAccountID);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // 리스트 아이템 클릭시 해당 계정 대시보드로 이동
   const handleAccoutClick = (account) => {
@@ -28,6 +29,7 @@ const AccountList = () => {
         activeAccountID: accountID,
       },
     });
+    setAlert('info', `${accountID}계정으로 전환되었습니다.`);
     navigate('/dashboard');
   };
 

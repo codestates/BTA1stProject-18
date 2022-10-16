@@ -118,12 +118,12 @@ const RecoverAccount = () => {
         시드 구문과 비밀번호를 입력해주세요.
       </Typography>
       <Box mt={5}>
-        <TextField label='시드 구문을 입력하세요.' fullWidth variant='outlined' onChange={handleTypeConfirmMnemonics} />
+        <TextField label='시드 구문' fullWidth variant='outlined' onChange={handleTypeConfirmMnemonics} />
       </Box>
 
       <Box component='form' noValidate autoComplete='off' mt={5}>
         <FormControl fullWidth variant='outlined'>
-          <InputLabel htmlFor='outlined-adornment-password'>비밀번호를 입력하세요.</InputLabel>
+          <InputLabel htmlFor='outlined-adornment-password'>비밀번호</InputLabel>
           <OutlinedInput
             id='outlined-adornment-password'
             type={showPassword ? 'text' : 'password'}
@@ -136,7 +136,7 @@ const RecoverAccount = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label='Password'
+            label='비밀번호'
           />
         </FormControl>
       </Box>
