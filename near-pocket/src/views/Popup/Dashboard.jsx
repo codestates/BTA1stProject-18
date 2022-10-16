@@ -98,12 +98,11 @@ const Dashboard = () => {
     })();
   }, [activeWallet]);
 
-   // 리스트 아이템 클릭시 해당 explorer로 이동
-   const handleTransClick = (add, i) => {
+  // 리스트 아이템 클릭시 해당 explorer로 이동
+  const handleTransClick = (add, i) => {
     console.log(add, i);
     //const walletName = add.name;
     //const accountID = add.accountID;
-    
   };
 
   const changeAccount = async (e) => {
@@ -134,9 +133,11 @@ const Dashboard = () => {
         ))}
       </select> */}
       <Box sx={dashboardHeaderStyle}>
-        <Typography variant='subtitle2' sx={{ color: '#636363' }}>
-          {curAccountID}
-        </Typography>
+        <Tooltip title='계정 ID'>
+          <Typography variant='subtitle2' sx={{ color: '#636363' }}>
+            {curAccountID}
+          </Typography>
+        </Tooltip>
         <Tooltip title='클립보드에 복사'>
           <Button variant='text' size='small' onClick={copyAddress}>
             <Typography variant='subtitle2' noWrap sx={{ color: '#636363', width: '100px' }}>
@@ -148,10 +149,12 @@ const Dashboard = () => {
       </Box>
       <Box mt={10} textAlign='center'>
         <img src={NearLogoText} alt='near logo' width='200px' />
-        <Typography variant='h6' color='primary' sx={{ fontWeight: 'bold', marginTop: '16px' }}>
-          {balance}
-          <span style={{ marginLeft: '8px', color: '#565656' }}>NEAR</span>
-        </Typography>
+        <Tooltip title='계좌 잔액'>
+          <Typography variant='h6' color='primary' sx={{ fontWeight: 'bold', marginTop: '16px' }}>
+            {balance}
+            <span style={{ marginLeft: '8px', color: '#565656' }}>NEAR</span>
+          </Typography>
+        </Tooltip>
       </Box>
 
       <Box mt={15} sx={transactionButtonWrapStyle}>
@@ -181,7 +184,7 @@ const Dashboard = () => {
         </Button>
       </Box>
 
-      <Box>
+      {/* <Box>
         <List>
           {transaction.map((add, i) => (
             <ListItemButton divider key={i} onClick={() => handleTransClick(add, i)}>
@@ -190,7 +193,7 @@ const Dashboard = () => {
             </ListItemButton>
           ))}
         </List>
-      </Box>
+      </Box> */}
 
       {/* <h2>트랜잭션 내역</h2>
       <ul>

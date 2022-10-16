@@ -19,7 +19,7 @@ const AppHeader = () => {
       <Toolbar>
         <Tooltip title='대시보드'>
           <Button variant='text' size='small' onClick={moveToDashboard}>
-            <img src={NearLogo} alt='near pocket logo' />
+            <img src={NearLogo} alt='near pocket logo' width='100px' />
           </Button>
         </Tooltip>
 
