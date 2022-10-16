@@ -1,3 +1,5 @@
+<img src='./client/src/assets/images/near-pocket-high-resolution-logo.png'>
+
 # Near Pocket : Near Protocol Wallet
 
 ## 1. 프로젝트 소개
@@ -21,7 +23,7 @@
 - 계정 잠금 및 해제 / 로그인 기능 구현
 - 트랜잭션 내역 확인 기능(개발중)
 
-### 1.3  차별점
+### 1.3 차별점
 
 - 가장 보편화된 사용자 지갑 (크롬 익스텐션)으로 개발
 - 실제 많이 사용하는 메타마스크, 카이카스 지갑과 유사한 기능
@@ -29,12 +31,14 @@
 - 기억하기 쉬운 계정 ID 생성 및 전송 기능 제공
 - 시드 구문, 퍼블릭키, 프라이빗키 등의 사용자 중요 정보 암호화로 보안 철저
 
-### 1.4  기술스택
+### 1.4 기술스택
 
 ![near-pocket-skill-stack.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0b708ace-bc76-4914-a784-462e31f674b1/near-pocket-skill-stack.png)
 
 ## 2. 프로젝트 추가 정보
+
 - Wiki : https://www.notion.so/DH-58ba2abb7d6f40a8b58b59ca97bbc913
 
 ## 3. 실행 방법
+
 - 각 디렉토리 별 README 참조
