@@ -140,7 +140,7 @@ const Recover = () => {
             label='Password'
           />
         </FormControl>
-        </Box>
+      </Box>
       {/* {mnemonicError && (
         <Typography variant='subtitle2' align='left' sx={{ color: 'red' }} mt={2} mb={2}>
           시드 구문이 일치하지 않습니다.
@@ -150,7 +150,6 @@ const Recover = () => {
         <Button onClick={recoverAccount} fullWidth variant='contained' disabled={!password || !phrase}>
           복구
         </Button>
-        
       </Box>
       {loading && <LoadingSpinner />}
     </Box>
