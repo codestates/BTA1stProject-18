@@ -99,7 +99,7 @@ const SendTokens = () => {
       <Typography variant='subtitle2' sx={{ color: '#636363' }} mt={2}>
         받는 계정 ID와 전송할 NEAR 갯수를 입력하세요.
       </Typography>
-      <Box mt={2}>
+      <Box mt={2} sx={{ padding: '12px', borderRadius: '12px', backgroundColor: '#5f8afa21' }}>
         <Typography variant='h6'>보내는 계정</Typography>
         <Box sx={flexBoxStyle} mt={2}>
           <Typography variant='subtitle2' sx={{ color: '#636363', width: '60px' }}>
@@ -118,7 +118,7 @@ const SendTokens = () => {
           </Typography>
         </Box>
       </Box>
-      <Box mt={3}>
+      <Box mt={3} sx={{ padding: '12px', borderRadius: '12px', border: '2px solid #b7b7b7' }}>
         <Typography variant='h6'>받는 계정</Typography>
         <Box sx={flexBoxStyle} mt={2}>
           <Typography variant='subtitle2' sx={{ color: '#636363', width: '60px' }}>
@@ -135,7 +135,7 @@ const SendTokens = () => {
       </Box>
       <Box mt={5}>
         <Button onClick={sendTransaction} fullWidth variant='contained' disabled={!accountID || !amount}>
-          계정 ID생성
+          전송
         </Button>
       </Box>
       {loading && <LoadingSpinner />}
