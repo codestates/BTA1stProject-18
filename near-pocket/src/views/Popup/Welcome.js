@@ -1,27 +1,37 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Button, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import EntryHeader from '../../components/EntryHeader';
 
-const PopupPage = props => {
+const PopupPage = (props) => {
   const navigate = useNavigate();
-  const wallet = localStorage.getItem("wallet");
+  const wallet = localStorage.getItem('wallet');
 
-  useEffect(() => {
-    if (wallet) {
-      navigate("/dashboard");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (wallet) {
+  //     navigate("/dashboard");
+  //   }
+  // }, []);
+  const moveToPage = (route) => navigate(route);
 
   return (
-    <div style={{ height: 300, width: 300 }}>
-      <Link to="/recover">
-        <button>Recover Wallet</button>
-      </Link>
-      <Link to="/create-password">
-        <button>Create a wallet</button>
-      </Link>
-    </div>
+    <Box>
+      <EntryHeader />
+      <Box mt={10}>
+        <Box>
+          <Button onClick={() => moveToPage('/create-password')} fullWidth variant='outlined'>
+            계정 생성
+          </Button>
+        </Box>
+        <Box mt={3}>
+          <Button onClick={() => moveToPage('/recover')} fullWidth variant='outlined'>
+            계정 복구
+          </Button>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
-import {
-  CREATE_WALLET,
-  SET_CURRENT_WALLET_NAME,
-  SWITCH_ACCOUNT,
-} from "../../redux/actionTypes";
-import {
-  decryptMessage,
-  encryptMessage,
-  generateSeed,
-  getStorageSyncValue,
-  setStorageSyncValue,
-} from "../../utils/utilsUpdated";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Box from '@mui/material/Box';
+import { Button, IconButton, Typography } from '@mui/material';
+import { CREATE_WALLET, SET_CURRENT_WALLET_NAME, SWITCH_ACCOUNT } from '../../redux/actionTypes';
+import { decryptMessage, encryptMessage, generateSeed, getStorageSyncValue, setStorageSyncValue } from '../../utils/utilsUpdated';
+import { useNavigate } from 'react-router';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import EntryHeader from '../../components/EntryHeader';
 
 const Seedphrase = () => {
-  const [mnemonics, setMnemonics] = useState("");
+  const navigate = useNavigate();
+  const [mnemonics, setMnemonics] = useState('');
+  const [encryptedData, setEncryptedData] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -24,77 +19,46 @@ const Seedphrase = () => {
     setMnemonicPhrase();
   }, []);
 
+  const copyMnemonics = () => navigator.clipboard.writeText(mnemonics);
   const setMnemonicPhrase = async () => {
     const { phrase, address, secret } = generateSeed();
     setMnemonics(phrase);
-    const hashedPassword = await getStorageSyncValue("hashedPassword");
-    const storedUserDetails = await getStorageSyncValue("userInfo");
+    const hashedPassword = await getStorageSyncValue('hashedPassword');
+    console.log(hashedPassword);
+    const storedUserDetails = await getStorageSyncValue('userInfo');
     const cipherMnemonic = encryptMessage(phrase, hashedPassword);
     const cipherPrivate = encryptMessage(secret, hashedPassword);
+    setEncryptedData({ data: cipherMnemonic, address: address, secretKey: cipherPrivate });
     console.log(storedUserDetails);
+  };
 
-    let keys = storedUserDetails ? Object.keys(storedUserDetails) : null;
-
-    let userInfo;
-
-    if (!storedUserDetails) {
-      userInfo = {
-        wallet1: {
-          name: "wallet1",
-          accounts: {
-            [address]: {
-              data: cipherMnemonic,
-              address: address,
-              secretKey: cipherPrivate,
-            },
-          },
-        },
-      };
-    } else {
-      let walletName = `wallet${keys.length + 1}`;
-      userInfo = {
-        ...storedUserDetails,
-        [walletName]: {
-          name: walletName,
-          accounts: {
-            [address]: {
-              data: cipherMnemonic,
-              address: address,
-              secretKey: cipherPrivate,
-            },
-          },
-        },
-      };
-    }
-
-    dispatch({
-      type: CREATE_WALLET,
-      payload: {
-        isLoggedIn: true,
-      },
-    });
-    dispatch({
-      type: SWITCH_ACCOUNT,
-      payload: {
-        activeWallet: keys ? `wallet${keys.length + 1}` : "wallet1",
-        activeAccountID: "",
-      },
-    });
-
-    localStorage.setItem("wallet", true);
-    dispatch({ type: SET_CURRENT_WALLET_NAME, payload: "wallet1" });
-    await setStorageSyncValue("userInfo", userInfo);
+  const moveToConfirmSeedPhrase = async () => {
+    navigate('/confirm-seed-phrase', { state: { ...encryptedData } });
   };
 
   return (
-    <div>
-      <h1>Seed Phrase</h1>
-      <h2>{mnemonics}</h2>
-
-      <Link to="/reserve-account-id">
-        <button>Next</button>
-      </Link>
-    </div>
+    <Box>
+      <EntryHeader />
+      <Typography variant='h6' align='left'>
+        시드 구문 보관 안내
+      </Typography>
+      <Typography variant='subtitle2' sx={{ color: '#636363' }} align='left' mt={2}>
+        아래 시드 구문을 종이에 적어 안전하게 보관해주세요.
+        <br />
+        이메일이나 컴퓨터에 보관할 경우 해킹으로 시드 구문이 유출될 수 있으니 삼가해주세요
+      </Typography>
+      <Typography variant='body1' align='left' mt={2} sx={{ display: 'flex', alignItems: 'flex-end', backgroundColor: '#bcdefc', padding: 1 }}>
+        {mnemonics}
+        <IconButton size='small' aria-label='copy text' onClick={copyMnemonics}>
+          <ContentCopyIcon />
+        </IconButton>
+      </Typography>
+      <Box mt={5}>
+        <Button onClick={moveToConfirmSeedPhrase} fullWidth variant='contained'>
+          안전한 곳에 보관했습니다.
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
