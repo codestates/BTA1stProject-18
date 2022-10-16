@@ -30,11 +30,11 @@ const ImportAccount = () => {
     try {
       const split = phrase.split(" ");
       if (split.length === 1) {
-        throw new Error("Invalid Seed Phrase");
+        throw new Error("유효하지 않은 시드 문구입니다.");
       }
       if (!phrase) return;
       if (!password) {
-        alert("Password is required");
+        alert("패스워드를 입력해주세요.");
         return;
       }
       setLoading(true);
@@ -44,7 +44,8 @@ const ImportAccount = () => {
       const publicKey = keyPair.publicKey.toString();
 
       const accountIdsByPublickKey = await getAccountIds(publicKey);
-
+      console.log(accountIdsByPublickKey);
+      
       const cipherPrivateKey = encryptMessage(secretKey, password);
       const cipherPhrase = encryptMessage(seedPhrase, password);
 
@@ -52,7 +53,8 @@ const ImportAccount = () => {
         wallet1: {
           name: "wallet1",
           accountID:
-            accountIdsByPublickKey.length > 0 && accountIdsByPublickKey[0],
+            accountIdsByPublickKey,
+            //accountIdsByPublickKey.length > 0 && accountIdsByPublickKey[0],
           accounts: {
             [publicKey]: {
               data: cipherPhrase,
@@ -102,26 +104,26 @@ const ImportAccount = () => {
 
   return (
     <div>
-      <h3>Recover Account from Seed Phrase</h3>
+      <h3>시드 구문으로 계정 복구</h3>
       <input
         value={phrase}
         onChange={e => setPhrase(e.target.value)}
-        placeholder="Enter Seed Phrase"
+        placeholder="시드 구문 입력"
       />
       <input
         value={password}
         type="password"
         onChange={e => setPassword(e.target.value)}
-        placeholder="Enter Password"
+        placeholder="비밀번호 입력"
       />
       {loading ? (
-        <p>Loading!!!</p>
+        <p>Loading...</p>
       ) : (
-        <button onClick={recoverAccount}>Recover</button>
+        <button onClick={recoverAccount}>복구</button>
       )}
       <button style={{ marginTop: 10 }} onClick={() => navigate("/dashboard")}>
         {" "}
-        {"<"} Go Back
+        {"<"} 뒤로가기
       </button>
     </div>
   );

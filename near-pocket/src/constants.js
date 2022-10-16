@@ -14,7 +14,7 @@ export const USD_CACHE_TIME = 120000;
 export const CURRENT_NETWORK = "testnet";
 export const ACCOUNT_HELPER_URL = `https://near-contract-helper.onrender.com`;
 
-export const BASE_URL = "https://api.kitwallet.app";
+export const BASE_URL = "http://localhost:8080";
 
 export const CONFIG = {
   networkId: CURRENT_NETWORK,
@@ -23,8 +23,8 @@ export const CONFIG = {
   // walletUrl: `https://wallet.${CURRENT_NETWORK}.near.org`,
   // explorerUrl: `https://explorer.${CURRENT_NETWORK}.near.org`,
   //helperUrl: BASE_URL,
+  nodeUrl: "https://rpc.testnet.near.org",
+  walletUrl: "https://wallet.testnet.near.org",
   helperUrl: "https://helper.testnet.near.org",
-  nodeUrl: `https://rpc.testnet.near.org`,
-  walletUrl: `https://wallet.near.org`,
-  explorerUrl: `https://explorer.near.org`,
+  explorerUrl: "https://explorer.testnet.near.org",
 };

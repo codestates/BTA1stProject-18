@@ -13,7 +13,7 @@ import {
   SWITCH_ACCOUNT,
 } from "../../redux/actionTypes";
 import { CONFIG } from "../../constants";
-import { connect } from "near-api-js";
+import { connect, utils } from "near-api-js";
 
 let near;
 
@@ -54,8 +54,9 @@ const Dashboard = () => {
 
       let userInfo = await getStorageSyncValue("userInfo");
       const account = await near.account(accountID);
+      console.log(account)
       const availableBalance = await fetchBalance(account);
-      const allTokens = await showAllHoldings(accountID, near);
+      //const allTokens = await showAllHoldings(accountID, near);
       let wallets = [];
       allAccounts.map(acc => {
         wallets.push(userInfo[acc]);
@@ -66,7 +67,10 @@ const Dashboard = () => {
         payload: allTokens,
       });
 
-      setAddress(address);
+      //16진수 퍼블릭 주소를 가져온다.
+      const publicAddress = utils.PublicKey.fromString(address).data.toString('hex');
+
+      setAddress(publicAddress);
       setPrivateKey(secret);
       setSeedPhrase(mnemonic);
       setBalance(availableBalance);
@@ -85,17 +89,17 @@ const Dashboard = () => {
     });
   };
 
-  console.log("aaaa", activeAccountID);
+  console.log("active: ", activeAccountID);
   return (
     <>
-      <h3 style={{ overflowWrap: "break-word" }}>PRIVATE KEY: {privateKey}</h3>
-      <h3 style={{ overflowWrap: "break-word" }}>Address: {address}</h3>
-      <h3>SEED PHRASE: {seedPhrase}</h3>
+      <h3 style={{ overflowWrap: "break-word" }}>프라이빗키: {privateKey}</h3>
+      <h3 style={{ overflowWrap: "break-word" }}>주소: {address}</h3>
+      <h3>시드 구문: {seedPhrase}</h3>
 
       <select onChange={e => changeAccount(e)}>
         {allWallets.map((add, i) => (
           <option
-            key={add.accountID}
+            key={i}
             value={`${add.name}:${add.accountID}`}
             selected={add.accountID === activeAccountID}
           >
@@ -104,20 +108,20 @@ const Dashboard = () => {
         ))}
       </select>
 
-      <h4>NEAR Balance: {balance} NEAR</h4>
+      <h4>Balance: {balance} NEAR</h4>
       <Link to="/send">
-        <button>Send</button>
+        <button>전송</button>
       </Link>
 
       <Link to="/seed-phrase">
-        <button>Create Account</button>
+        <button>계정 생성</button>
       </Link>
 
       <Link to="/import-account">
-        <button>Import Account</button>
+        <button>계정 가져오기</button>
       </Link>
 
-      <h2>Your Holdings</h2>
+      <h2>트랜잭션 내역</h2>
       <ul>
         {allTokens?.map(tk => (
           <li key={tk.address}>

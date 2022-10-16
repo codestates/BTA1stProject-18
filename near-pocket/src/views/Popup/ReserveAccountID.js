@@ -37,7 +37,7 @@ const ReserveAccountID = () => {
       let publicKey = Object.keys(userInfo[activeWallet]["accounts"])[0];
 
       if (state) {
-        alert("Account with this name already present");
+        alert("이미 동일한 계정 ID가 있습니다.");
         setLoading(false);
       } else {
         await near.createAccount(formattedAccountID, publicKey);
@@ -54,7 +54,7 @@ const ReserveAccountID = () => {
           },
         });
         await setStorageSyncValue("userInfo", userInfo);
-        alert(`Account Created!!! Your ID is ${formattedAccountID}`);
+        alert(`계정이 생성되었습니다!!! ID는 ${formattedAccountID}`);
         navigate("/dashboard");
       }
     } catch (error) {
@@ -66,8 +66,8 @@ const ReserveAccountID = () => {
 
   return (
     <div>
-      <h1>Create Account ID</h1>
-      <p>Example ID's: thisismyid.testnet, firstid.testnet</p>
+      <h1>계정 ID 생성</h1>
+      <p>예시 ID's: thisismyid.testnet, firstid.testnet</p>
 
       <input
         value={accountID}
@@ -75,9 +75,9 @@ const ReserveAccountID = () => {
         onChange={e => setAccountID(e.target.value)}
       />
       {loading ? (
-        <p>Loading!!!</p>
+        <p>Loading...</p>
       ) : (
-        <button onClick={createAccountID}>Create Account ID</button>
+        <button onClick={createAccountID}>계정 생성</button>
       )}
     </div>
   );

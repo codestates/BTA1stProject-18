@@ -144,15 +144,23 @@ export const checkAccountStatus = async accountInfo => {
 
 export const fetchBalance = async account => {
   const balance = await account.getAccountBalance();
-  console.log("AHahh", balance);
-  return balance.available / 10 ** 24;
+  console.log("balance: ", balance);
+  
+  let num = balance.available / 10 ** 24;
+  let result = Math.floor(num * 100000) / 100000;
+
+  return result;
 };
 
 export let controller;
 
 export async function getAccountIds(publicKey) {
   controller = new AbortController();
-  return await fetch(`${BASE_URL}/publicKey/${publicKey}/accounts`, {
-    signal: controller.signal,
-  }).then(res => res.json());
+  console.log(`${BASE_URL}/accountID?${publicKey}`);
+
+  const { data } = await axios.get(
+    `${BASE_URL}/accountID?publicKey=${publicKey}`
+  );
+  console.log(data[0].account_id);
+  return data[0].account_id;
 }

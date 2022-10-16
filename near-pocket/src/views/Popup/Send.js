@@ -66,7 +66,7 @@ const SendTokens = () => {
         );
         console.log("HASH========", transaction.transaction.hash);
       }
-      alert("Transaction Successful");
+      alert("성공적으로 송금되었습니다.");
       navigate("/dashboard");
       setLoading(false);
     } catch (error) {
@@ -75,7 +75,7 @@ const SendTokens = () => {
       if (
         error.message.includes("no matching key pair found in InMemorySigner")
       ) {
-        alert("You dont have permission");
+        alert("해당 계정은 송금에 대한 권한이 없습니다.");
       } else {
         alert(error.message);
       }
@@ -84,7 +84,7 @@ const SendTokens = () => {
 
   return (
     <div>
-      <h3>Send Assets</h3>
+      <h3>니어 송금</h3>
       <select onChange={e => setSelectedAsset(e.target.value)}>
         <option value="">NEAR</option>
         {allTokens.map((tk, ind) => (
@@ -96,23 +96,23 @@ const SendTokens = () => {
 
       <input
         value={receiver}
-        placeholder="Enter Address"
+        placeholder="Account ID 입력"
         onChange={e => setReceiver(e.target.value)}
       />
       <input
         value={amount}
-        placeholder="Enter amount"
+        placeholder="금액 입력"
         onChange={e => setAmount(e.target.value)}
         type="number"
       />
 
       <>
         {loading ? (
-          <p>Loading!!!</p>
+          <p>Loading...</p>
         ) : (
-          <button onClick={sendTransaction}>Send</button>
+          <button onClick={sendTransaction}>전송</button>
         )}
-        <Link to="/dashboard">Back</Link>
+        <Link to="/dashboard">메인</Link>
       </>
     </div>
   );
