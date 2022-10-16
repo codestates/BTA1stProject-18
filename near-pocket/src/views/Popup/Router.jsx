@@ -16,7 +16,7 @@ import LockAccount from './LockAccount';
 import { Box } from '@mui/system';
 
 import ConfirmSeedPhrase from './ConfirmSeedPhrase';
-import AccountList from './AccountList';
+import AccountsList from './AccountsList';
 import AppHeader from '../../components/AppHeader';
 
 const Router = () => {
@@ -33,7 +33,7 @@ const Router = () => {
           <Route path='/uc-confirm-seed-phrase' element={<ConfirmSeedPhrase />} />
           <Route path='/uc-reserve-account-id' element={<ReserveAccountID />} />
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/account-list' element={<AccountList />} />
+          <Route path='/accounts-list' element={<AccountsList />} />
           <Route path='/recover' element={<RecoverAccount />} />
           <Route path='/send' element={<SendTokens />} />
           <Route path='/import-account' element={<ImportAccount />} />

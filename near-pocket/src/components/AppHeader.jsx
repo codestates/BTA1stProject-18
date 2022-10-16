@@ -35,7 +35,7 @@ const AppHeader = () => {
         {!headerAuth && (
           <Box>
             <Tooltip title='계정관리'>
-              <IconButton size='small' edge='start' aria-label='account info' sx={{ mr: 1 }} onClick={() => navigate('/account-list')}>
+              <IconButton size='small' edge='start' aria-label='account info' sx={{ mr: 1 }} onClick={() => navigate('/accounts-list')}>
                 <PeopleAltIcon />
               </IconButton>
             </Tooltip>
