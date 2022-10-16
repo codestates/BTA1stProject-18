@@ -26,7 +26,7 @@ const StartPage = () => {
           </Button>
         </Box>
         <Box mt={3}>
-          <Button onClick={() => moveToPage('/recover')} fullWidth variant='outlined'>
+          <Button onClick={() => moveToPage('/uc-create-account')} fullWidth variant='outlined'>
             계정 복구
           </Button>
         </Box>

@@ -5,6 +5,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import LockIcon from '@mui/icons-material/Lock';
 import NearLogo from '../assets/images/near-pocket-logo-icon.svg';
 import VpnLockIcon from '@mui/icons-material/VpnLock';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { useLocation, useNavigate } from 'react-router';
 
 const AppHeader = () => {
@@ -37,6 +38,11 @@ const AppHeader = () => {
             <Tooltip title='계정관리'>
               <IconButton size='small' edge='start' aria-label='account info' sx={{ mr: 1 }} onClick={() => navigate('/accounts-list')}>
                 <PeopleAltIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title='시드 구문 보기'>
+              <IconButton size='small' edge='start' aria-label='account info' sx={{ mr: 1 }} onClick={() => navigate('/check-seed')}>
+                <VpnKeyIcon />
               </IconButton>
             </Tooltip>
             <Tooltip title='잠금'>
