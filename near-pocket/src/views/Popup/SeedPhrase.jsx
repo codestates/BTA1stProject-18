@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import { Button, IconButton, Typography } from '@mui/material';
+import { Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { encryptMessage, generateSeed, getStorageSyncValue } from '../../utils/utilsUpdated';
 import { useNavigate } from 'react-router';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -45,9 +45,11 @@ const Seedphrase = () => {
       </Typography>
       <Typography variant='body1' align='left' mt={2} sx={{ display: 'flex', alignItems: 'flex-end', backgroundColor: '#bcdefc', padding: 1 }}>
         {mnemonics}
-        <IconButton size='small' aria-label='copy text' onClick={copyMnemonics}>
-          <ContentCopyIcon />
-        </IconButton>
+        <Tooltip title='클립보드에 복사'>
+          <IconButton size='small' aria-label='copy text' onClick={copyMnemonics}>
+            <ContentCopyIcon />
+          </IconButton>
+        </Tooltip>
       </Typography>
       <Box mt={5}>
         <Button onClick={moveToConfirmSeedPhrase} fullWidth variant='contained'>
