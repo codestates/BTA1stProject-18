@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-import { fetchBalance, getStorageSyncValue, initialTasks, showAllHoldings } from '../../utils/utilsUpdated';
+import { fetchBalance, getStorageSyncValue, initialTasks, getTransaction, showAllHoldings } from '../../utils/utilsUpdated';
 import { SHOW_ALL_CUSTOM_TOKENS, SWITCH_ACCOUNT } from '../../redux/actionTypes';
 import { CONFIG } from '../../constants';
 import { connect, utils } from 'near-api-js';
 import { Box } from '@mui/system';
-import { Button, Tooltip, Typography } from '@mui/material';
+import { Button, List, ListItemButton, ListItemAvatar, ListItemText, Tooltip, Typography } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import NearLogoText from '../../assets/images/near-logo-icon-text.svg';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
@@ -46,6 +46,7 @@ const Dashboard = () => {
 
   const [balance, setBalance] = useState(0);
   const [allWallets, setAllWallets] = useState([]);
+  const [transaction, setTransaction] = useState([]);
 
   const allTokens = useSelector(({ walletEncrypted }) => walletEncrypted?.allTokens);
   const activeWallet = useSelector(({ walletEncrypted }) => walletEncrypted?.activeWallet);
@@ -90,8 +91,20 @@ const Dashboard = () => {
       setSeedPhrase(mnemonic);
       setBalance(availableBalance);
       setCurAccountID(accountID);
+
+      //const allTransaction = await getTransaction(accountID);
+      //console.log(allTransaction);
+      //setTransaction(allTransaction);
     })();
   }, [activeWallet]);
+
+   // 리스트 아이템 클릭시 해당 explorer로 이동
+   const handleTransClick = (add, i) => {
+    console.log(add, i);
+    //const walletName = add.name;
+    //const accountID = add.accountID;
+    
+  };
 
   const changeAccount = async (e) => {
     let [walletName, accId] = e.target.value.split(':');
@@ -166,6 +179,17 @@ const Dashboard = () => {
             내역
           </Typography>
         </Button>
+      </Box>
+
+      <Box>
+        <List>
+          {transaction.map((add, i) => (
+            <ListItemButton divider key={i} onClick={() => handleTransClick(add, i)}>
+              
+              <ListItemText primary={add.name} secondary={add.accountID} />
+            </ListItemButton>
+          ))}
+        </List>
       </Box>
 
       {/* <h2>트랜잭션 내역</h2>
