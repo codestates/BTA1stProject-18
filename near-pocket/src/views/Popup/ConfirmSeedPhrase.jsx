@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { Button, TextField, Typography } from '@mui/material';
 import { decryptMessage, getStorageSyncValue, setStorageSyncValue } from '../../utils/utilsUpdated';
 import { CREATE_WALLET, SET_CURRENT_WALLET_NAME, SWITCH_ACCOUNT } from '../../redux/actionTypes';
-import EntryHeader from '../../components/EntryHeader';
+import PageHeader from '../../components/PageHeader';
 
 const ConfirmSeedPhrase = () => {
   const navigate = useNavigate();
@@ -24,9 +24,6 @@ const ConfirmSeedPhrase = () => {
     const storedUserDetails = await getStorageSyncValue('userInfo');
     const encryptedData = { ...location?.state };
     let keys = storedUserDetails ? Object.keys(storedUserDetails) : null;
-
-    console.log(`router: ${encryptedData.data}`);
-    console.log(`decrypted: ${decryptMessage(encryptedData.data, hashedPassword)}`);
 
     if (decryptMessage(encryptedData.data, hashedPassword) === confirmMnemonics) {
       let userInfo;
@@ -60,7 +57,6 @@ const ConfirmSeedPhrase = () => {
           },
         };
       }
-
       dispatch({
         type: CREATE_WALLET,
         payload: {
@@ -86,10 +82,7 @@ const ConfirmSeedPhrase = () => {
 
   return (
     <Box>
-      <EntryHeader />
-      <Typography variant='h6' align='left'>
-        시드 구문 확인
-      </Typography>
+      <PageHeader title='시드구문 확인' />
       <Typography variant='subtitle2' sx={{ color: '#636363' }} align='left' mt={2}>
         받았던 시드 구문을 입력해주세요.
       </Typography>

@@ -4,7 +4,6 @@ import { Box } from '@mui/system';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import LockIcon from '@mui/icons-material/Lock';
 import NearLogo from '../assets/images/near-pocket-logo-icon.svg';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import VpnLockIcon from '@mui/icons-material/VpnLock';
 import { useLocation, useNavigate } from 'react-router';
 

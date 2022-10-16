@@ -7,9 +7,9 @@ import { Button, TextField, Typography } from '@mui/material';
 import { CONFIG } from '../../constants';
 import { checkAccountStatus, getStorageSyncValue, setStorageSyncValue } from '../../utils/utilsUpdated';
 import { SWITCH_ACCOUNT } from '../../redux/actionTypes';
-import EntryHeader from '../../components/EntryHeader';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import useAlert from '../../hooks/useAlert';
+import PageHeader from '../../components/PageHeader';
 
 const ReserveAccountID = () => {
   const [accountID, setAccountID] = useState('');
@@ -37,7 +37,6 @@ const ReserveAccountID = () => {
       let publicKey = Object.keys(userInfo[activeWallet]['accounts'])[0];
 
       if (state) {
-        alert('이미 동일한 계정 ID가 있습니다.');
         setErrorMsg('이미 동일한 계정 ID가 있습니다.');
         setLoading(false);
       } else {
@@ -68,10 +67,7 @@ const ReserveAccountID = () => {
 
   return (
     <Box>
-      <EntryHeader />
-      <Typography variant='h6' align='left'>
-        계정 ID 생성
-      </Typography>
+      <PageHeader title='계정 ID 생성' />
       <Typography variant='subtitle2' sx={{ color: '#636363' }} align='left' mt={2}>
         ID 생성시 ".testnet"이 자동으로 붙어서 생성됩니다.
       </Typography>

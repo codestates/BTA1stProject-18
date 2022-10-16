@@ -7,7 +7,7 @@ import CreatePassword from './CreatePassword';
 import Seedphrase from './SeedPhrase';
 import Dashboard from './Dashboard';
 import Recover from './Recover';
-import SendTokens from './Send';
+import SendTokens from './SendTokens';
 import ImportAccount from './ImportAccount';
 import ReserveAccountID from './ReserveAccountID';
 import SeedConfirm from './SeedConfirm';
