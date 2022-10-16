@@ -3,7 +3,7 @@ import { Button, Toolbar, Typography, IconButton, AppBar, Tooltip } from '@mui/m
 import { Box } from '@mui/system';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import LockIcon from '@mui/icons-material/Lock';
-import logo from '../assets/images/near-pocket-logo-icon.svg';
+import NearLogo from '../assets/images/near-pocket-logo-icon.svg';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import VpnLockIcon from '@mui/icons-material/VpnLock';
 import { useLocation, useNavigate } from 'react-router';
@@ -20,7 +20,7 @@ const AppHeader = () => {
       <Toolbar>
         <Tooltip title='대시보드'>
           <Button variant='text' size='small' onClick={moveToDashboard}>
-            <img src={logo} alt='near pocket logo' />
+            <img src={NearLogo} alt='near pocket logo' />
           </Button>
         </Tooltip>
 
@@ -34,7 +34,7 @@ const AppHeader = () => {
         {!headerAuth && (
           <Box>
             <Tooltip title='계정관리'>
-              <IconButton size='small' edge='start' aria-label='account info' sx={{ mr: 1 }} onClick={() => navigate('account-list')}>
+              <IconButton size='small' edge='start' aria-label='account info' sx={{ mr: 1 }} onClick={() => navigate('/account-list')}>
                 <PeopleAltIcon />
               </IconButton>
             </Tooltip>

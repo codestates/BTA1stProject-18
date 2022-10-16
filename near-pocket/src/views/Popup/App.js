@@ -4,7 +4,7 @@ import AlertModal from '../../components/common/AlertModal';
 
 const App = () => {
   return (
-    <Container fixed disableGutters sx={{ width: '360px', height: '600px', overflowY: 'auto' }}>
+    <Container fixed disableGutters sx={{ width: '370px', height: '600px', overflowY: 'auto' }}>
       <AlertModal />
       <Router />
     </Container>
