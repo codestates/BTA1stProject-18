@@ -7,22 +7,8 @@ import { SHOW_ALL_CUSTOM_TOKENS, SWITCH_ACCOUNT } from '../../redux/actionTypes'
 import { CONFIG } from '../../constants';
 import { connect, utils } from 'near-api-js';
 import { Box } from '@mui/system';
-import { Modal, Backdrop, Fade, Typography } from '@mui/material';
 
 let near;
-
-const modalStyle = {
-  position: 'absolute',
-  top: '64px',
-  bottom: '64px',
-  left: '16px',
-  right: '16px',
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 const Dashboard = () => {
   const [privateKey, setPrivateKey] = useState('');
@@ -31,10 +17,6 @@ const Dashboard = () => {
 
   const [balance, setBalance] = useState(0);
   const [allWallets, setAllWallets] = useState([]);
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const handleModalOpen = () => setModalOpen(true);
-  const handleModalClose = () => setModalOpen(false);
 
   const allTokens = useSelector(({ walletEncrypted }) => walletEncrypted?.allTokens);
   const activeWallet = useSelector(({ walletEncrypted }) => walletEncrypted?.activeWallet);
@@ -129,26 +111,6 @@ const Dashboard = () => {
           </li>
         ))}
       </ul>
-      <Modal
-        open={modalOpen}
-        onClose={handleModalClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={modalOpen}>
-          <Box sx={modalStyle}>
-            <Typography id='transition-modal-title' variant='h6' component='h2'>
-              Text in a modal
-            </Typography>
-            <Typography id='transition-modal-description' sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-          </Box>
-        </Fade>
-      </Modal>
     </Box>
   );
 };

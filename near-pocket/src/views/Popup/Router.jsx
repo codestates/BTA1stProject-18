@@ -16,19 +16,23 @@ import { Box } from '@mui/system';
 
 import './App.css';
 import ConfirmSeedPhrase from './ConfirmSeedPhrase';
+import AccountList from './AccountList';
+import AppHeader from '../../components/AppHeader';
 
 const Router = () => {
   const history = createMemoryHistory();
   return (
     <BrowserRouter history={history}>
-      <Box sx={{ paddingTop: '4px', marginTop: '56px', paddingX: '16px' }}>
+      <AppHeader />
+      <Box sx={{ paddingTop: '8px', marginTop: '56px', paddingX: '16px' }}>
         <Routes>
           <Route path='/' element={<Welcome />} />
           <Route path='/uc-create-password' element={<CreatePassword />} />
           <Route path='/uc-seed-phrase' element={<Seedphrase />} />
           <Route path='/uc-confirm-seed-phrase' element={<ConfirmSeedPhrase />} />
-          <Route path='/reserve-account-id' element={<ReserveAccountID />} />
-          <Route path='/dashboard' label='dashboard2' element={<Dashboard />} />
+          <Route path='/uc-reserve-account-id' element={<ReserveAccountID />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/account-list' element={<AccountList />} />
           <Route path='/recover' element={<Recover />} />
           <Route path='/send' element={<SendTokens />} />
           <Route path='/import-account' element={<ImportAccount />} />

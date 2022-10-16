@@ -31,7 +31,7 @@ const AppHeader = () => {
 
         {!headerAuth && (
           <Box>
-            <IconButton size='small' edge='start' aria-label='account info' sx={{ mr: 1 }}>
+            <IconButton size='small' edge='start' aria-label='account info' sx={{ mr: 1 }} onClick={() => navigate('account-list')}>
               <PeopleAltIcon />
             </IconButton>
             <IconButton size='small' edge='start' aria-label='lock screen'>

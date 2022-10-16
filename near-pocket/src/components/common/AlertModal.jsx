@@ -12,7 +12,7 @@ const AlertModal = () => {
         severity={type}
         sx={{
           position: 'absolute',
-          top: 0,
+          top: 68,
           left: 20,
           right: 20,
           zIndex: 10,

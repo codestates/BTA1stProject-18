@@ -78,7 +78,7 @@ const ConfirmSeedPhrase = () => {
       localStorage.setItem('wallet', true);
       dispatch({ type: SET_CURRENT_WALLET_NAME, payload: 'wallet1' });
       await setStorageSyncValue('userInfo', userInfo);
-      navigate('/reserve-account-id');
+      navigate('/uc-reserve-account-id');
     } else {
       setMnemonicError(true);
     }
