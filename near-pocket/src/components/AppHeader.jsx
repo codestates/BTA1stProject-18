@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Toolbar, Typography, IconButton, AppBar } from '@mui/material';
+import { Button, Toolbar, Typography, IconButton, AppBar, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import LockIcon from '@mui/icons-material/Lock';
@@ -18,9 +18,11 @@ const AppHeader = () => {
   return (
     <AppBar position='fixed' style={{ background: 'white', height: '56px' }}>
       <Toolbar>
-        <Button variant='text' size='small' onClick={moveToDashboard}>
-          <img src={logo} alt='near pocket logo' />
-        </Button>
+        <Tooltip title='대시보드'>
+          <Button variant='text' size='small' onClick={moveToDashboard}>
+            <img src={logo} alt='near pocket logo' />
+          </Button>
+        </Tooltip>
 
         <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
           <Typography variant='subtitle2' component='span' color='#7d7d7d'>
@@ -31,12 +33,16 @@ const AppHeader = () => {
 
         {!headerAuth && (
           <Box>
-            <IconButton size='small' edge='start' aria-label='account info' sx={{ mr: 1 }} onClick={() => navigate('account-list')}>
-              <PeopleAltIcon />
-            </IconButton>
-            <IconButton size='small' edge='start' aria-label='lock screen'>
-              <LockIcon />
-            </IconButton>
+            <Tooltip title='계정관리'>
+              <IconButton size='small' edge='start' aria-label='account info' sx={{ mr: 1 }} onClick={() => navigate('account-list')}>
+                <PeopleAltIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title='잠금'>
+              <IconButton size='small' edge='start' aria-label='lock screen'>
+                <LockIcon />
+              </IconButton>
+            </Tooltip>
           </Box>
         )}
       </Toolbar>
