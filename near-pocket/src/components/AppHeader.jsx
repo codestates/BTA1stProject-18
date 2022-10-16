@@ -38,7 +38,7 @@ const AppHeader = () => {
               </IconButton>
             </Tooltip>
             <Tooltip title='잠금'>
-              <IconButton size='small' edge='start' aria-label='lock screen'>
+              <IconButton size='small' edge='start' aria-label='lock screen' sx={{ mr: 1 }} onClick={() => navigate('/lock-account')}>
                 <LockIcon />
               </IconButton>
             </Tooltip>

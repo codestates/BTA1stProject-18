@@ -12,6 +12,7 @@ import ImportAccount from './ImportAccount';
 import ReserveAccountID from './ReserveAccountID';
 import SeedConfirm from './SeedConfirm';
 import AccountConfirm from './AccountConfirm';
+import LockAccount from './LockAccount';
 import { Box } from '@mui/system';
 
 import './App.css';
@@ -38,6 +39,7 @@ const Router = () => {
           <Route path='/import-account' element={<ImportAccount />} />
           <Route path='/seed-confirm' element={<SeedConfirm />} />
           <Route path='/account-confirm' element={<AccountConfirm />} />
+          <Route path='/lock-account' element={<LockAccount />} />
         </Routes>
       </Box>
     </BrowserRouter>

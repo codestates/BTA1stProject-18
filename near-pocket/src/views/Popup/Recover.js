@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, TextField, IconButton, OutlinedInput, InputLabel, InputAdornment, FormControl, Typography } from '@mui/material';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import useAlert from '../../hooks/useAlert';
 
@@ -11,15 +11,17 @@ import { KeyPair } from 'near-api-js';
 import { useDispatch } from 'react-redux';
 import { CREATE_WALLET, IMPORT_WALLET, SET_CURRENT_WALLET_NAME, SWITCH_ACCOUNT } from '../../redux/actionTypes';
 import PageHeader from '../../components/PageHeader';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const Recover = () => {
   const [loading, setLoading] = useState(false);
   const [phrase, setPhrase] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
   const { setAlert } = useAlert();
-
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   const handleTypeConfirmMnemonics = (e) => {
@@ -30,6 +32,8 @@ const Recover = () => {
     //setMnemonicError(false);
     setPassword(e.target.value);
   };
+
+  const handleShowPassword = () => setShowPassword(!showPassword);
 
   const recoverAccount = async () => {
     try {
@@ -115,11 +119,28 @@ const Recover = () => {
         시드 구문과 비밀번호를 입력해주세요.
       </Typography>
       <Box mt={5}>
-        <TextField label='시드 구문 입력' fullWidth variant='outlined' onChange={handleTypeConfirmMnemonics} />
+        <TextField label='시드 구문을 입력하세요.' fullWidth variant='outlined' onChange={handleTypeConfirmMnemonics} />
       </Box>
-      <Box mt={5}>
-        <TextField label='비밀번호 입력' fullWidth variant='outlined' onChange={handleTypeConfirmPassword} />
-      </Box>
+
+      <Box component='form' noValidate autoComplete='off' mt={5}>
+        <FormControl fullWidth variant='outlined'>
+          <InputLabel htmlFor='outlined-adornment-password'>비밀번호를 입력하세요.</InputLabel>
+          <OutlinedInput
+            id='outlined-adornment-password'
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            endAdornment={
+              <InputAdornment position='end'>
+                <IconButton aria-label='toggle password visibility' onClick={handleShowPassword} edge='end'>
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label='Password'
+          />
+        </FormControl>
+        </Box>
       {/* {mnemonicError && (
         <Typography variant='subtitle2' align='left' sx={{ color: 'red' }} mt={2} mb={2}>
           시드 구문이 일치하지 않습니다.
@@ -129,9 +150,7 @@ const Recover = () => {
         <Button onClick={recoverAccount} fullWidth variant='contained' disabled={!password || !phrase}>
           복구
         </Button>
-        <Button onClick={() => navigate('/dashboard')} fullWidth variant='contained'>
-          뒤로가기
-        </Button>
+        
       </Box>
       {loading && <LoadingSpinner />}
     </Box>

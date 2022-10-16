@@ -9,7 +9,7 @@ const PopupPage = () => {
 
   useEffect(() => {
     if (wallet) {
-      navigate('/dashboard');
+      navigate('/lock-account');
     }
   }, []);
   const moveToPage = (route) => navigate(route);
