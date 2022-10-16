@@ -24,13 +24,9 @@ const SeedConfirm = () => {
   
   const setMnemonicPhrase = async () => {
 
-    const { address, mnemonic, secret, accountID } =
+    const { mnemonic } =
     await initialTasks(activeWallet);
     
-    //16진수 퍼블릭 주소를 가져온다.
-    //const publicAddress = utils.PublicKey.fromString(address).data.toString('hex');
-
-    //setAddress(publicAddress);
     setMnemonics(mnemonic);
   };
 

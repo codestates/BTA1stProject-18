@@ -1,18 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
-import { List, ListItemButton, ListItemAvatar, ListItemText, Typography } from '@mui/material';
-import { fetchBalance, getStorageSyncValue, initialTasks, showAllHoldings } from '../../utils/utilsUpdated';
-import { useSelector } from 'react-redux';
+import { Button, List, ListItemButton, ListItemAvatar, ListItemText, Typography } from '@mui/material';
+import { fetchBalance, getStorageSyncValue, initialTasks } from '../../utils/utilsUpdated';
+import { useDispatch, useSelector } from 'react-redux';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { SWITCH_ACCOUNT } from '../../redux/actionTypes';
+import { useNavigate } from 'react-router';
 
 const AccountList = () => {
   const [allWallets, setAllWallets] = useState([]);
 
   const activeWallet = useSelector(({ walletEncrypted }) => walletEncrypted?.activeWallet);
-  // 리스트 아이템 클릭시
+  const activeAccountID = useSelector(({ walletEncrypted }) => walletEncrypted?.activeAccountID);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // 리스트 아이템 클릭시 해당 계정 대시보드로 이동
   const handleAccoutClick = (add, i) => {
     console.log(add, i);
+    const walletName = add.name;
+    const accountID = add.accountID;
+    
+    dispatch({
+      type: SWITCH_ACCOUNT,
+      payload: {
+        activeWallet: walletName,
+        activeAccountID: accountID,
+      },
+    });
+
+    navigate('/dashboard');
   };
+
+  const moveToCreate = async () => {
+    navigate('/uc-seed-phrase');
+  };
+  const moveToImport = async () => {
+    navigate('/import-account');
+  };
+
   useEffect(() => {
     (async () => {
       const { address, mnemonic, secret, accountID, allAccounts } = await initialTasks(activeWallet);
@@ -26,7 +53,7 @@ const AccountList = () => {
   }, [activeWallet]);
   return (
     <Box>
-      <Typography variant='h6' align='left'>
+      <Typography variant='h6' align='center'>
         계정 관리
       </Typography>
       <Box>
@@ -41,6 +68,14 @@ const AccountList = () => {
           ))}
         </List>
       </Box>
+      <Button onClick={moveToCreate} align='center' variant='contained'>
+          생성
+      </Button>
+      &nbsp;
+      <Button onClick={moveToImport} align='center' variant='contained'>
+          가져오기
+      </Button>
+    
     </Box>
   );
 };

@@ -89,10 +89,15 @@ const init = async () => {
             });
 
             try {
+                //client.end();
                 client.connect();
                 let response = await client.query(query, parameters);
-                console.log(response.rows)
-                return response.rows;
+                let data = response.rows;
+                console.log(data);
+
+                client.end();
+
+                return data;
             } catch (ex) {
                 return api.reject('Error: ' + ex.message);
             }

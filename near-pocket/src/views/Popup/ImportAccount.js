@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
+import Box from '@mui/material/Box';
+import { Button, TextField, Typography } from '@mui/material';
+import EntryHeader from '../../components/EntryHeader';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
+import useAlert from '../../hooks/useAlert';
+
 import {
   encryptMessage,
   getAccountIds,
@@ -9,7 +15,7 @@ import {
   setStorageSyncValue,
 } from "../../utils/utilsUpdated";
 import { parseSeedPhrase } from "near-seed-phrase";
-import { KeyPair, connect, WalletConnection } from "near-api-js";
+import { KeyPair } from "near-api-js";
 import { SWITCH_ACCOUNT } from "../../redux/actionTypes";
 import { CONFIG } from "../../constants";
 
@@ -19,8 +25,14 @@ const ImportAccount = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+  const { setAlert } = useAlert();
+
+  const handleTypeConfirmMnemonics = (e) => {
+    setPhrase(e.target.value);
+  };
 
   const importAccount = async () => {
+    
     try {
       
       if (phrase.startsWith("ed25519:")) {
@@ -30,11 +42,12 @@ const ImportAccount = () => {
         //시드 구문으로 입력받은 경우
         const split = phrase.split(" ");
         if (split.length === 1) {
+          setAlert('error', "유효하지 않은 시드 구문입니다.");
           throw new Error("유효하지 않은 시드 구문입니다.");
         }
         if (!phrase) return;
       }
-
+      
       const { secretKey, seedPhrase } = parseSeedPhrase(phrase);
 
       const keyPair = KeyPair.fromString(secretKey);
@@ -45,6 +58,7 @@ const ImportAccount = () => {
       console.log("accountID: " + accountIdsByPublickKey);
 
       if (!phrase || accountIdsByPublickKey.length === 0) {
+        setAlert('error', "유효하지 않은 시드 구문입니다.");
         throw new Error("유효하지 않은 시드 구문입니다.");
       }
       setLoading(true);
@@ -59,7 +73,8 @@ const ImportAccount = () => {
       }
 
       if (isExist) {
-        alert("해당 계정은 이미 존재합니다.");
+        setAlert('error', "해당 계정은 이미 존재합니다.");
+        //alert("해당 계정은 이미 존재합니다.");
         setLoading(false);
         return;
       }
@@ -97,24 +112,30 @@ const ImportAccount = () => {
     } catch (error) {
       console.log("error : ", error.message);
       setLoading(false);
-      alert(error.message);
+      setAlert('error', error.message);
+      //alert(error.message);
     }
   };
 
   return (
-    <div>
-      <h3>시드 구문 / 시크릿 키로 계정 가져오기</h3>
-      <input value={phrase} onChange={e => setPhrase(e.target.value)} />
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <button onClick={importAccount}>가져오기</button>
-      )}
-      <button style={{ marginTop: 10 }} onClick={() => navigate("/dashboard")}>
-        {" "}
-        {"<"} 뒤로가기
-      </button>
-    </div>
+    <Box>
+      <EntryHeader />
+      <Typography variant='h6' align='center'>
+        시드 구문 / 시크릿키로 계정 가져오기
+      </Typography>
+      
+      <Box mt={5}>
+        <TextField label='시드 구문 / 시크릿키 입력' fullWidth variant='outlined' onChange={handleTypeConfirmMnemonics} />
+      </Box>
+      
+      <Box mt={5}>
+        <Button onClick={importAccount} fullWidth variant='contained' disabled={!phrase}>
+          가져오기
+        </Button>
+      </Box>
+      {loading && <LoadingSpinner />}
+    </Box>
+
   );
 };
 

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
+import { Button, TextField, Typography } from '@mui/material';
+import EntryHeader from '../../components/EntryHeader';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
+import useAlert from '../../hooks/useAlert';
 
 import {
   encryptMessage,
@@ -17,14 +22,24 @@ import {
   SWITCH_ACCOUNT,
 } from "../../redux/actionTypes";
 
-const ImportAccount = () => {
+const Recover = () => {
   const [loading, setLoading] = useState(false);
-  const [phrase, setPhrase] = useState("");
-  const [password, setPassword] = useState("");
-
+  const [phrase, setPhrase] = useState('');
+  const [password, setPassword] = useState('');
+  const { setAlert } = useAlert();
+  
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const handleTypeConfirmMnemonics = (e) => {
+    //setMnemonicError(false);
+    setPhrase(e.target.value);
+  };
+  const handleTypeConfirmPassword = (e) => {
+    //setMnemonicError(false);
+    setPassword(e.target.value);
+  };
 
   const recoverAccount = async () => {
     try {
@@ -34,7 +49,8 @@ const ImportAccount = () => {
       }
       if (!phrase) return;
       if (!password) {
-        alert("패스워드를 입력해주세요.");
+        setAlert('error', "패스워드를 입력해주세요.");
+        //alert("패스워드를 입력해주세요.");
         return;
       }
       setLoading(true);
@@ -98,35 +114,43 @@ const ImportAccount = () => {
     } catch (error) {
       console.log("err===", error.message);
       setLoading(false);
-      alert(error.message);
+      setAlert('error', error.message);
+      //alert(error.message);
     }
   };
 
   return (
-    <div>
-      <h3>시드 구문으로 계정 복구</h3>
-      <input
-        value={phrase}
-        onChange={e => setPhrase(e.target.value)}
-        placeholder="시드 구문 입력"
-      />
-      <input
-        value={password}
-        type="password"
-        onChange={e => setPassword(e.target.value)}
-        placeholder="비밀번호 입력"
-      />
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <button onClick={recoverAccount}>복구</button>
-      )}
-      <button style={{ marginTop: 10 }} onClick={() => navigate("/dashboard")}>
-        {" "}
-        {"<"} 뒤로가기
-      </button>
-    </div>
+    <Box>
+      <EntryHeader />
+      <Typography variant='h6' align='center'>
+        시드 구문으로 계정 복구
+      </Typography>
+      <Typography variant='subtitle2' sx={{ color: '#636363' }} align='center' mt={2}>
+        시드 구문과 비밀번호를 입력해주세요.
+      </Typography>
+      <Box mt={5}>
+        <TextField label='시드 구문 입력' fullWidth variant='outlined' onChange={handleTypeConfirmMnemonics} />
+      </Box>
+      <Box mt={5}>
+        <TextField label='비밀번호 입력' fullWidth variant='outlined' onChange={handleTypeConfirmPassword} />
+      </Box>
+      {/* {mnemonicError && (
+        <Typography variant='subtitle2' align='left' sx={{ color: 'red' }} mt={2} mb={2}>
+          시드 구문이 일치하지 않습니다.
+        </Typography>
+      )} */}
+      <Box mt={5}>
+        <Button onClick={recoverAccount} fullWidth variant='contained' disabled={!password || !phrase}>
+          복구
+        </Button>
+        <Button onClick={() => navigate("/dashboard")} fullWidth variant='contained' >
+          뒤로가기
+        </Button>
+      </Box>
+      {loading && <LoadingSpinner />}
+    </Box>
+
   );
 };
 
-export default ImportAccount;
+export default Recover;
