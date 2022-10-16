@@ -33,7 +33,7 @@
 
 ### 1.4 기술스택
 
-![near-pocket-skill-stack.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0b708ace-bc76-4914-a784-462e31f674b1/near-pocket-skill-stack.png)
+<img src='./client/src/assets/images/near-pocket-skill-stack.png'>
 
 ## 2. 프로젝트 추가 정보
 
