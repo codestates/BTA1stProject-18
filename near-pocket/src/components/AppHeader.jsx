@@ -11,7 +11,7 @@ const AppHeader = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const headerAuth = location.pathname === '/' || location.pathname.startsWith('/uc');
+  const headerAuth = location.pathname === '/popup.html' || location.pathname.startsWith('/uc');
   const moveToDashboard = () => !headerAuth && navigate('/dashboard');
 
   return (

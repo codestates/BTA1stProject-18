@@ -1,26 +1,31 @@
 {
-  "manifest_version": 2,
-  "name": "Sonar NEAR Wallet",
-  "description": "Wallet to simply track your balance",
+  "manifest_version": 3,
+  "name": "NEAR wallet Extensions",
+  "description": "NEAR Protocol 블록제인 지갑",
   "version": "0.1",
   "permissions": ["storage", "background"],
-  "background": {
-    "scripts": ["static/js/background.js"],
-    "persistent": true
+  "action": {
+    "default_title": "NEAR Wallet",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "logo.png",
+      "32": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
+    },
+    "icons": {
+      "16": "logo.png",
+      "32": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
+    }
   },
-
-  "browser_action": {
-    "default_title": "Keyword Marker",
-    "default_popup": "popup.html"
+  "background": {
+    "service_worker": "static/js/background.js",
+    "type": "module"
   },
   "options_ui": {
     "page": "options.html",
     "open_in_tab": true
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "wallet-runtime.connect-and-storage.local@example.com",
-      "strict_min_version": "48.0a1"
-    }
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 
 import Welcome from './Welcome';
 import CreatePassword from './CreatePassword';
@@ -26,7 +26,8 @@ const Router = () => {
       <AppHeader />
       <Box sx={{ paddingTop: '8px', marginTop: '56px', paddingX: '16px' }}>
         <Routes>
-          <Route path='/' element={<Welcome />} />
+          <Route path='/' element={<Navigate to='/popup.html' replace />} />
+          <Route path='/popup.html' element={<Welcome />} />
           <Route path='/uc-create-password' element={<CreatePassword />} />
           <Route path='/uc-seed-phrase' element={<Seedphrase />} />
           <Route path='/uc-confirm-seed-phrase' element={<ConfirmSeedPhrase />} />
