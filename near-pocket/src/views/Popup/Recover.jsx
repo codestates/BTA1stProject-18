@@ -44,7 +44,6 @@ const Recover = () => {
       if (!phrase) return;
       if (!password) {
         setAlert('error', '패스워드를 입력해주세요.');
-        //alert("패스워드를 입력해주세요.");
         return;
       }
       setLoading(true);

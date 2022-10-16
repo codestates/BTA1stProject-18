@@ -42,7 +42,7 @@ const CreatePassword = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label='Password'
+            label='비밀번호'
           />
         </FormControl>
         <FormControl fullWidth sx={{ marginTop: 2 }} variant='outlined' mt={5}>
@@ -59,7 +59,7 @@ const CreatePassword = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label='Password'
+            label='비밀번호 확인'
           />
         </FormControl>
         {password && confirmPassword && password !== confirmPassword && (

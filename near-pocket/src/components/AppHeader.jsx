@@ -11,7 +11,7 @@ const AppHeader = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const headerAuth = location.pathname === '/popup.html' || location.pathname.startsWith('/uc');
+  const headerAuth = location.pathname === '/popup.html' || location.pathname === '/lock-account' || location.pathname.startsWith('/uc');
   const moveToDashboard = () => !headerAuth && navigate('/dashboard');
 
   return (
@@ -24,10 +24,12 @@ const AppHeader = () => {
         </Tooltip>
 
         <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
-          <Typography variant='subtitle2' component='span' color='#7d7d7d'>
-            <VpnLockIcon sx={{ width: '12px', height: '12px', mr: '4px' }} />
-            test.net
-          </Typography>
+          <Tooltip title='대시보드'>
+            <Typography variant='subtitle2' component='span' color='#7d7d7d'>
+              <VpnLockIcon sx={{ width: '12px', height: '12px', mr: '4px' }} />
+              test.net
+            </Typography>
+          </Tooltip>
         </Box>
 
         {!headerAuth && (
@@ -38,7 +40,7 @@ const AppHeader = () => {
               </IconButton>
             </Tooltip>
             <Tooltip title='잠금'>
-              <IconButton size='small' edge='start' aria-label='lock screen' sx={{ mr: 1 }} onClick={() => navigate('/lock-account')}>
+              <IconButton size='small' edge='start' aria-label='lock screen' onClick={() => navigate('/lock-account')}>
                 <LockIcon />
               </IconButton>
             </Tooltip>
