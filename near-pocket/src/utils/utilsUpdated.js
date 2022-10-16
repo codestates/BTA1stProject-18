@@ -161,6 +161,17 @@ export async function getAccountIds(publicKey) {
   const { data } = await axios.get(
     `${BASE_URL}/accountID?publicKey=${publicKey}`
   );
-  console.log(data[0].account_id);
-  return data[0].account_id;
+  console.log(data);
+  return data.account_id;
+}
+
+export async function getTransaction(accountId) {
+  
+  console.log(`${BASE_URL}/explorer?${accountId}`);
+
+  const { data } = await axios.get(
+    `${BASE_URL}/explorer?accountId=${accountId}`
+  );
+  console.log(data);
+  return data;
 }

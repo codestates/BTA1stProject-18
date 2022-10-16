@@ -7,8 +7,9 @@ const crypto = require('crypto');
 const CatboxMemory = require('@hapi/catbox-memory');
 const Hapi = require('@hapi/hapi');
 const fs = require('fs');
-const {Client} = require('pg');
-Client.poolSize = 100;
+const {Client, Pool} = require('pg');
+Client.poolSize = 10000;
+Pool.poolSize = 10000;
 
 const settings = JSON.parse(fs.readFileSync(api.CONFIG_PATH, 'utf8'));
 const ViewCacheExpirationInSeconds = 10;
@@ -75,12 +76,12 @@ const init = async () => {
             const database = settings.database;
             const password = settings.password;
             const port = settings.port;
-            const query = 'SELECT * FROM access_keys WHERE public_key = $1';
+            const query = 'SELECT * FROM access_keys WHERE public_key = $1 ORDER BY last_update_block_height';
           
             let parameters = [];
             parameters.push(publicKey);
             console.log(parameters);
-            const client = new Client({
+            const pool = new Pool({
                 user,
                 host,
                 database,
@@ -90,14 +91,93 @@ const init = async () => {
 
             try {
                 //client.end();
-                client.connect();
-                let response = await client.query(query, parameters);
+                //client.connect();
+                //let response = await client.query(query, parameters);
+               
+                pool.connect();
+                let response = await pool.query(query, parameters);
+
                 let data = response.rows;
-                console.log(data);
+                console.log(data[0]);
 
-                client.end();
+                pool.end();
+                //client.end();
 
+                return data[0];
+
+                // promise - checkout a client
+                /* pool.connect()
+                .then(client => {
+                    client.query(query, parameters) 
+                    .then(res => {
+                        client.release()
+                        console.log(res.rows[0]) 
+                        data = res.rows;
+                        return data;
+                    })
+                    .catch(e => {
+                        client.release()
+                        console.log(err.stack)
+                    })
+                }) */
+
+               /*  client.connect()
+                client.query(query, parameters) // your query string here
+                .then(result => data = result.rows) // your callback here
+                .catch(e => console.error(e.stack)) // your callback here
+                .then(() => client.end()) */
+
+                /* let data = response.rows;
+                console.log(data[0]);
+                //client.release();
+                client.end(); */
+
+                //return data;
+            } catch (ex) {
+                return api.reject('Error: ' + ex.message);
+            }
+        },
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/explorer',
+        handler: async (request) => {
+            const accountId = request.query.accountId;
+            if(accountId === undefined || !accountId) {
+                return api.reject('계정 ID가 없습니다.');
+            }
+           
+            const user = settings.user;
+            const host = settings.host;
+            const database = settings.database;
+            const password = settings.password;
+            const port = settings.port;
+            const query = 'SELECT * FROM action_receipt_actions WHERE action_kind = $2 AND receipt_receiver_account_id = $1 LIMIT 5';
+          
+            let parameters = [];
+            parameters.push(accountId);
+            parameters.push('TRANSFER');
+            console.log(parameters);
+            const pool = new Pool({
+                user,
+                host,
+                database,
+                password,
+                port,
+            });
+
+            try {
+                pool.connect();
+                let response = await pool.query(query, parameters);
+
+                let data = response.rows;
+                console.log(data[0]);
+
+                pool.end();
+                //client.end();
                 return data;
+
             } catch (ex) {
                 return api.reject('Error: ' + ex.message);
             }
@@ -281,7 +361,7 @@ const init = async () => {
 
 process.on('unhandledRejection', (err) => {
     console.log(err);
-    process.exit(1);
+    process.exit(-1);
 });
 
 const getServerMethodParams = () => {
