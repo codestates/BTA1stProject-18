@@ -29,7 +29,7 @@ const Seedphrase = () => {
   };
 
   const moveToConfirmSeedPhrase = async () => {
-    navigate('/confirm-seed-phrase', { state: { ...encryptedData } });
+    navigate('/uc-confirm-seed-phrase', { state: { ...encryptedData } });
   };
 
   return (

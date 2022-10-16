@@ -18,7 +18,7 @@ const CreatePassword = () => {
   const handleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
   const createPassword = async () => {
     await setStorageSyncValue('hashedPassword', password);
-    navigate('/seed-phrase');
+    navigate('/uc-seed-phrase');
   };
 
   return (

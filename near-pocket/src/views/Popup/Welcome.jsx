@@ -20,7 +20,7 @@ const PopupPage = () => {
       <EntryHeader />
       <Box mt={10}>
         <Box>
-          <Button onClick={() => moveToPage('/create-password')} fullWidth variant='outlined'>
+          <Button onClick={() => moveToPage('/uc-create-password')} fullWidth variant='outlined'>
             계정 생성
           </Button>
         </Box>
