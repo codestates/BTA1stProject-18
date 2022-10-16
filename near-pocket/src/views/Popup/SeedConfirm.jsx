@@ -7,9 +7,11 @@ import { initialTasks } from '../../utils/utilsUpdated';
 import { useNavigate } from 'react-router';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import PageHeader from '../../components/PageHeader';
+import useAlert from '../../hooks/useAlert';
 
 const SeedConfirm = () => {
   const navigate = useNavigate();
+  const { setAlert } = useAlert();
   const [mnemonics, setMnemonics] = useState('');
 
   const activeWallet = useSelector(({ walletEncrypted }) => walletEncrypted?.activeWallet);
@@ -18,7 +20,10 @@ const SeedConfirm = () => {
     setMnemonicPhrase();
   }, [activeWallet]);
 
-  const copyMnemonics = () => navigator.clipboard.writeText(mnemonics);
+  const copyMnemonics = () => {
+    setAlert('info', '시드구문이 클립보드에 복사되었습니다.');
+    navigator.clipboard.writeText(mnemonics);
+  };
 
   const setMnemonicPhrase = async () => {
     const { mnemonic } = await initialTasks(activeWallet);

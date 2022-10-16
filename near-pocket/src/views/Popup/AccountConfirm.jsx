@@ -9,9 +9,11 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { utils } from 'near-api-js';
 import QRCode from 'react-qr-code';
 import PageHeader from '../../components/PageHeader';
+import useAlert from '../../hooks/useAlert';
 
 const AccountConfirm = () => {
   const navigate = useNavigate();
+  const { setAlert } = useAlert();
   const [accountId, setAccountId] = useState('');
   const [hexAddress, setHexAddress] = useState('');
   const activeWallet = useSelector(({ walletEncrypted }) => walletEncrypted?.activeWallet);
@@ -20,7 +22,10 @@ const AccountConfirm = () => {
     setData();
   }, [activeWallet]);
 
-  const copyAddress = () => navigator.clipboard.writeText(hexAddress);
+  const copyAddress = () => {
+    setAlert('info', '주소가 클립보드에 복사되었습니다.');
+    navigator.clipboard.writeText(hexAddress);
+  };
   const setData = async () => {
     const { address, accountID } = await initialTasks(activeWallet);
     setAccountId(accountID);

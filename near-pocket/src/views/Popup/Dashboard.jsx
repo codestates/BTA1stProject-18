@@ -13,6 +13,7 @@ import NearLogoText from '../../assets/images/near-logo-icon-text.svg';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import InputIcon from '@mui/icons-material/Input';
 import SendIcon from '@mui/icons-material/Send';
+import useAlert from '../../hooks/useAlert';
 let near;
 
 const dashboardHeaderStyle = {
@@ -39,6 +40,7 @@ const transactionButtonStyle = {
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { setAlert } = useAlert();
   const [privateKey, setPrivateKey] = useState('');
   const [address, setAddress] = useState('');
   const [seedPhrase, setSeedPhrase] = useState('');
@@ -117,7 +119,10 @@ const Dashboard = () => {
     });
   };
 
-  const copyAddress = () => navigator.clipboard.writeText(address);
+  const copyAddress = () => {
+    setAlert('info', '주소가 클립보드에 복사되었습니다.');
+    navigator.clipboard.writeText(address);
+  };
 
   console.log('active: ', activeAccountID);
   return (
