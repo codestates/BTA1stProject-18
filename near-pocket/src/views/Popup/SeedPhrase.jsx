@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import { Button, IconButton, Typography } from '@mui/material';
-import { CREATE_WALLET, SET_CURRENT_WALLET_NAME, SWITCH_ACCOUNT } from '../../redux/actionTypes';
-import { decryptMessage, encryptMessage, generateSeed, getStorageSyncValue, setStorageSyncValue } from '../../utils/utilsUpdated';
+import { encryptMessage, generateSeed, getStorageSyncValue } from '../../utils/utilsUpdated';
 import { useNavigate } from 'react-router';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EntryHeader from '../../components/EntryHeader';
@@ -12,8 +10,6 @@ const Seedphrase = () => {
   const navigate = useNavigate();
   const [mnemonics, setMnemonics] = useState('');
   const [encryptedData, setEncryptedData] = useState(null);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setMnemonicPhrase();

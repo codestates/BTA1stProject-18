@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 import EntryHeader from '../../components/EntryHeader';
 
-const PopupPage = (props) => {
+const PopupPage = () => {
   const navigate = useNavigate();
   const wallet = localStorage.getItem('wallet');
 
-  // useEffect(() => {
-  //   if (wallet) {
-  //     navigate("/dashboard");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (wallet) {
+      navigate('/dashboard');
+    }
+  }, []);
   const moveToPage = (route) => navigate(route);
 
   return (
